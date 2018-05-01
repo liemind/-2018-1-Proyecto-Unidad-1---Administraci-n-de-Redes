@@ -1,6 +1,76 @@
 !ROUTER
+! 100 Soporte
+! 102 Mercadeo
+! 104 Juridica
+! 106 I+D
+! 108 Ventas
+! 1 nativa
 
+hostname RT_TAL
+no ip domain-lookup
+enable secret cisco
+line con 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+exit
 
+!redes wan
+interface Serial0/3/0
+ip address 200.75.51.128 255.255.255.252
+no shutdown
+exit
+
+interface Serial0/3/1
+ip address 190.26.217.0 255.255.255.252
+no shutdown
+exit
+
+!encapsulamiento
+! -- Soporte
+interface g0/0.100
+encapsulation dot1Q 100
+ip address 10.30.0.254 255.255.255.0
+no shutdown
+exit
+
+! -- Mercadeo
+interface g0/0.102
+encapsulation dot1Q 102
+ip address 10.30.2.254 255.255.255.0
+no shutdown
+exit
+
+! -- Juridica
+interface g0/0.104
+encapsulation dot1Q 104
+ip address 10.30.4.254 255.255.255.0
+no shutdown
+exit
+
+! -- I+D
+interface g0/0.106
+encapsulation dot1Q 106
+ip address 10.30.6.254 255.255.255.0
+no shutdown
+exit
+
+! -- Ventas
+interface g0/0.108
+encapsulation dot1Q 108
+ip address 10.30.8.254 255.255.255.0
+no shutdown
+exit
+
+!nativa
+interface g0/0.1
+encapsulation dot1Q 1
+ip address 10.30.3.254 255.255.255.0
+no shutdown
+exit
 
 !router rip Talca
 router rip

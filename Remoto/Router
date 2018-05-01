@@ -1,6 +1,6 @@
 !REMOTO
 
-hostname REMOTE
+hostname REMOTE_RT
 no ip domain-lookup
 enable secret cisco
 line con 0

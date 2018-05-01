@@ -3,6 +3,19 @@
 ! 110 Gerencia
 ! 1 nativa
 
+
+hostname RT_CUR
+no ip domain-lookup
+enable secret cisco
+line con 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+exit
+
 !red wan
 interface Serial0/1/0
 ip address 200.75.51.128 255.255.255.252
