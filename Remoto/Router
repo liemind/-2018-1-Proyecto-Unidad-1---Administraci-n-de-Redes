@@ -1,0 +1,33 @@
+!REMOTO
+
+hostname REMOTE
+no ip domain-lookup
+enable secret cisco
+line con 0
+password cisco
+login
+exit
+line vty 0 4
+password cisco
+login
+exit
+
+!red wan
+interface Serial0/1/0
+ip address 190.26.217.0 255.255.255.252
+no shutdown
+exit
+
+!red lan
+interface fa0/0
+ip address 172.16.1.0 255.255.255.0
+no shutdown
+exit
+
+!router rip Remoto
+router rip
+network 190.26.217.0
+network 172.16.1.1
+version 2
+no auto-sumary
+exit

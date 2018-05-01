@@ -1,0 +1,16 @@
+!ROUTER
+
+
+
+!router rip Talca
+router rip
+network 190.26.217.0
+network 200.75.51.128
+network 10.30.0.0
+network 10.30.2.0
+network 10.30.4.0
+network 10.30.6.0
+network 10.30.8.0
+version 2
+no auto-sumary
+exit
