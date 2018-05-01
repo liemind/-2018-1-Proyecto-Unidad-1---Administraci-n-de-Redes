@@ -1,7 +1,7 @@
 ! ROUTER
-! 10 Ventas
-! 20 Gerencia
-
+! 108 Ventas
+! 110 Gerencia
+! 1 nativa
 
 !red wan
 interface Serial0/1/0
@@ -16,15 +16,15 @@ ip address 192.168.10.0 255.255.255.0
 no shutdown
 exit
 
-interface fastEthernet 0/0.20
-encapsulation dot1Q 20
+interface fastEthernet 0/0.108
+encapsulation dot1Q 108
 ip address 192.168.11.0 255.255.255.0
 no shutdown
 exit
 
 !nativa
-interface fastEthernet 0/0.99
-encapsulation dot1Q 99
+interface fastEthernet 0/0.1
+encapsulation dot1Q 1
 ip address 192.168.20.0 255.255.255.0
 no shutdown
 exit
