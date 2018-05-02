@@ -20,11 +20,13 @@ exit
 
 !redes wan
 interface Serial0/3/0
+bandwidth 512
 ip address 200.75.51.128 255.255.255.252
 no shutdown
 exit
 
 interface Serial0/3/1
+bandwidth 512
 ip address 190.26.217.0 255.255.255.252
 no shutdown
 exit
