@@ -1,10 +1,5 @@
-! SWITCH
-! 108 Ventas
-! 110 Gerencia
-! 1 nativa
-
-
 !cerrar todos los puertos
+
 enable
 configure terminal
 interface range fa0/1-24
@@ -17,6 +12,18 @@ exit
 hostname SW1_CUR
 no ip domain-lookup
 enable secret cisco
+
+vlan 108
+name ventas
+exit
+
+vlan 110
+name gerencia
+exit
+
+vlan 1
+name nativa
+exit
 
 line con 0
 password cisco
@@ -31,17 +38,6 @@ exit
 interface range fa0/2, fa0/3
 switchport mode access
 no shutdown
-exit
-
-!nombre vlans
-vlan 108
-name ventas
-exit
-vlan 110
-name gerencia
-exit
-vlan 1
-name nativa
 exit
 
 !asignar vlans a puertos
@@ -62,3 +58,5 @@ switchport trunk native vlan 1
 no shutdown
 exit
 exit
+
+copy running-config startup-config 
