@@ -1,6 +1,6 @@
 !REMOTO
 
-hostname REMOTE
+hostname REMOTE_RT
 no ip domain-lookup
 enable secret cisco
 line con 0
@@ -14,6 +14,7 @@ exit
 
 !red wan
 interface Serial0/1/0
+bandwidth 512
 ip address 190.26.217.0 255.255.255.252
 no shutdown
 exit

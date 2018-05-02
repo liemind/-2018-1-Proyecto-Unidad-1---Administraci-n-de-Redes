@@ -1,0 +1,76 @@
+!SWITCH PRINCIPAL
+
+
+
+!cerrar todos los puertos
+enable
+configure terminal
+interface range fa0/1-24
+shutdown
+exit
+interface range gi0/1-2
+shutdown
+exit
+
+hostname SWP_TALCA
+no ip domain-lookup
+enable secret cisco
+
+line con 0
+password cisco
+login
+exit
+
+line vty 0 4
+password cisco
+login
+exit
+
+interface range fa0/2, fa0/3
+switchport mode access
+no shutdown
+exit
+
+!nombre vlans
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+vlan 1
+name nativa
+exit
+
+!asignar vlans a puertos
+
+!fa02 a ventas
+interface fa0/2
+switchport access vlan 106
+exit
+
+!fa03 a i+d
+interface fa0/3
+switchport access vlan 108
+exit
+
+interface range fa0/23, fa0/24
+switchport mode trunk
+switchport trunk native vlan 1
+no shutdown
+exit
+
+interface range gi0/1, gi0/2
+switchport mode trunk
+switchport trunk native vlan 1
+no shutdown
+exit
