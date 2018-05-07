@@ -2,33 +2,44 @@
 
 hostname REMOTE_RT
 no ip domain-lookup
+
+!Telnet
 enable secret cisco
-line con 0
-password cisco
-login
-exit
+username cisco password cisco
 line vty 0 4
-password cisco
-login
+login local
+line con 0
+login local
+exit
+
+!red Lan
+interface fa0/0
+ip address 172.16.1.1 255.255.255.0
+no shutdown
 exit
 
 !red wan
+!interfaz que se conectara con la sucursal de Talca
 interface Serial0/1/0
-bandwidth 512
-ip address 190.26.217.0 255.255.255.252
+ip address 190.26.217.1 255.255.255.252
 no shutdown
 exit
 
-!red lan
-interface fa0/0
-ip address 172.16.1.0 255.255.255.0
-no shutdown
-exit
+interface Vlan1
+no ip address
+shutdown
 
-!router rip Remoto
-router rip
-network 190.26.217.0
-network 172.16.1.1
-version 2
-no auto-sumary
-exit
+!Enrutamiento estatico.
+!Nota: Aqui se deben colocar todas las redes VLan y Wan de la red para que el router pueda responder a los paquetes que recibe de estas.
+
+ip route 10.30.1.0 255.255.255.0 190.26.217.2
+ip route 10.30.0.0 255.255.255.0 190.26.217.2
+ip route 10.30.2.0 255.255.255.0 190.26.217.2
+ip route 10.30.4.0 255.255.255.0 190.26.217.2
+ip route 10.30.6.0 255.255.255.0 190.26.217.2
+ip route 10.30.8.0 255.255.255.0 190.26.217.2
+ip route 10.30.10.0 255.255.255.0 190.26.217.2
+ip route 200.75.51.128 255.255.255.252 192.26.217.2
+ip route 192.168.10.0 255.255.255.0 190.26.217.2
+ip route 192.168.11.0 255.255.255.0 190.26.217.2
+ip route 10.30.3.0 255.255.255.0 190.26.217.2

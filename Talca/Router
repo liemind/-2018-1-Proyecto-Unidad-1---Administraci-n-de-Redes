@@ -8,34 +8,29 @@
 
 hostname RT_TAL
 no ip domain-lookup
+
+!Telnet
 enable secret cisco
-line con 0
-password cisco
-login
-exit
+username cisco password cisco
 line vty 0 4
-password cisco
-login
-exit
-
-!redes wan
-interface Serial0/3/0
-bandwidth 512
-ip address 200.75.51.128 255.255.255.252
-no shutdown
-exit
-
-interface Serial0/3/1
-bandwidth 512
-ip address 190.26.217.0 255.255.255.252
+login local
+line con 0
+login local
+int vlan 1
 no shutdown
 exit
 
 !encapsulamiento
+
+interface GigabitEthernet0/0
+no ip address
+no shutdown
+
 ! -- Soporte
 interface gi0/0.100
 encapsulation dot1Q 100
 ip address 10.30.0.254 255.255.255.0
+ip helper-address 10.30.1.1
 no shutdown
 exit
 
@@ -43,6 +38,7 @@ exit
 interface gi0/0.102
 encapsulation dot1Q 102
 ip address 10.30.2.254 255.255.255.0
+ip helper-address 10.30.1.1
 no shutdown
 exit
 
@@ -50,6 +46,7 @@ exit
 interface gi0/0.104
 encapsulation dot1Q 104
 ip address 10.30.4.254 255.255.255.0
+ip helper-address 10.30.1.1
 no shutdown
 exit
 
@@ -57,6 +54,7 @@ exit
 interface gi0/0.106
 encapsulation dot1Q 106
 ip address 10.30.6.254 255.255.255.0
+ip helper-address 10.30.1.1
 no shutdown
 exit
 
@@ -64,17 +62,55 @@ exit
 interface gi0/0.108
 encapsulation dot1Q 108
 ip address 10.30.8.254 255.255.255.0
+ip helper-address 10.30.1.1
 no shutdown
 exit
 
 !nativa
 interface gi0/0.1
-encapsulation dot1Q 1
+encapsulation dot1Q 1 native
 ip address 10.30.3.254 255.255.255.0
 no shutdown
 exit
 
-!router rip Talca
+!Interfaz DHCP
+interface gi0/1
+ip address 10.30.1.2 255.255.255.0
+no shutdown
+
+!redes wan
+
+!interfaz que se conectara con la sucursal de curico
+interface Serial0/3/0
+bandwidth 512
+ip address 200.75.51.129 255.255.255.252
+no shutdown
+exit
+
+!Interfaz que se conectara con el sitio remoto
+interface Serial0/3/1
+ip address 190.26.217.1 255.255.255.252
+no shutdown
+exit
+
+interface Vlan1
+no ip address
+shutdown
+exit
+
+!Configuracion dinamica de enrutamiento para Talca.
+!Nota: Se anuncian las redes directamente conectadas sin considerar la del sitio remoto. Ademas se aplica el comando REDISTRIBUTE STATIC  para que comparta el enrutamiento estatico del SITIO REMOTO y asi la red de curicó pueda acceder al servidor de consulta.
+router rip
+redistribute static
+network 10.0.0.0
+network 200.75.51.0
+
+ip route 172.16.1.0 255.255.255.0 190.26.217.2
+
+!Guardar los cambios
+cop r s
+
+!Otra forma de Enrutamiento (Talca)
 router rip
 network 190.26.217.0
 network 200.75.51.128
@@ -83,6 +119,5 @@ network 10.30.2.0
 network 10.30.4.0
 network 10.30.6.0
 network 10.30.8.0
-version 2
-no auto-sumary
 exit
+ 

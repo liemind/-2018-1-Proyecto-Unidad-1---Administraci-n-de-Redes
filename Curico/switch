@@ -1,17 +1,28 @@
-!cerrar todos los puertos
-
 enable
 configure terminal
+
+hostname SW1_CUR
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
 interface range fa0/1-24
 shutdown
 exit
+
 interface range gi0/1-2
 shutdown
 exit
 
-hostname SW1_CUR
-no ip domain-lookup
-enable secret cisco
+!Se crean y asignan nombres a las vlans
 
 vlan 108
 name ventas
@@ -25,31 +36,20 @@ vlan 1
 name nativa
 exit
 
-line con 0
-password cisco
-login
-exit
-
-line vty 0 4
-password cisco
-login
-exit
-
-interface range fa0/2, fa0/3
-switchport mode access
-no shutdown
-exit
-
 !asignar vlans a puertos
 
 !fa02 a gerencia
 interface fa0/2
+switchport mode access
 switchport access vlan 110
+no shutdown
 exit
 
 !fa03 a ventas
 interface fa0/3
+switchport mode access
 switchport access vlan 108
+no shutdown
 exit
 
 interface range g0/1
@@ -57,6 +57,14 @@ switchport mode trunk
 switchport trunk native vlan 1
 no shutdown
 exit
+
+!VLan de administracion
+interface Vlan1
+ip address 192.168.20.254 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 192.168.20.254
 exit
 
 copy running-config startup-config 

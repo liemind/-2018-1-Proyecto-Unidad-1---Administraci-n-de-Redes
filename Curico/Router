@@ -1,81 +1,77 @@
 enable
-!
-!
 erase startup-config
-!
-!
+
 hostname RT_CUR
-!
-!
+no ip domain-lookup
+
+!Telnet
 enable secret cisco
-! 
-!
-vlan 108
-name ventas
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+int vlan 1
+no shutdown
 exit
-! 
-!
-vlan 110
-name gerencia
-exit
-!
-!
+
+!Se excluyen las IP del POOL DHCP de cada VLan.
 ip dhcp excluded-address 192.168.10.1
 ip dhcp excluded-address 192.168.11.1
-!
-!
+
+
+!Creacion de POOL DHCP
+
 ip dhcp pool ventas
 network 192.168.10.0 255.255.255.0
 default-router 192.168.10.1
 exit
-!
-!
+
 ip dhcp pool gerencia
 network 192.168.11.0 255.255.255.0
 default-router 192.168.11.1
 exit
-!
-!
+
+
+!Encapsulamiento
+
 interface FastEthernet0/0
 no ip address
-!
-!
+no shutdown
+
 interface FastEthernet 0/0.108
 encapsulation dot1Q 108
 ip address 192.168.10.1 255.255.255.0
 no shutdown
 exit
-!
-!
+
 interface fastEthernet 0/0.110
 encapsulation dot1Q 110
 ip address 192.168.11.1 255.255.255.0
 no shutdown
 exit
-!
-!
+
 interface fastEthernet 0/0.1
-encapsulation dot1Q 1
+encapsulation dot1Q 1 native
 ip address 192.168.20.254 255.255.255.0
 no shutdown
 exit
-!
-!
+
+
+!redes wan
+
+!interfaz que se conectara con la sucursal de Talca
 interface Serial 0/1/0
 bandwidth 512
 ip address 200.75.51.130 255.255.255.252
 no shutdown
 exit
-!
-!
+
+!Enrutamiento dinamico con RIP
 router rip
 network 192.168.10.0
 network 192.168.11.0
 network 192.168.20.0
 network 200.75.51.0
 exit
-!
-!
-line vty 0 4
-password cisco
-login cisco
+
