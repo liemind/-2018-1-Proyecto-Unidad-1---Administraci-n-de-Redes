@@ -120,4 +120,15 @@ network 10.30.4.0
 network 10.30.6.0
 network 10.30.8.0
 exit
- 
+
+!router ospf 
+router ospf 0
+network 190.26.217.0 0.0.0.3 a 0
+network 200.75.51.128 0.0.0.3 a 0
+network 10.30.0.0 0.0.0.255 a 0
+network 10.30.2.0 0.0.0.255 a 0
+network 10.30.4.0 0.0.0.255 a 0
+network 10.30.6.0 0.0.0.255 a 0
+network 10.30.8.0 0.0.0.255 a 0
+exit
+

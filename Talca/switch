@@ -1,0 +1,489 @@
+!SWITCH PRINCIPAL
+
+enable
+configure terminal
+
+hostname SW1CORE_P3
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
+interface range fa0/1-24
+shutdown
+exit
+
+interface range gi0/1-2
+shutdown
+exit
+
+!Se crean y asignan nombres a las vlans
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+
+!asignar vlans a puertos
+
+!fa04 a ventas
+interface fa0/4
+sw mode access
+switchport access vlan 108
+exit
+
+!fa03 a i+d
+interface fa0/3
+sw mode access
+switchport access vlan 106
+exit
+
+!Asignar modo trunk
+interface range gi0/23, fa0/24
+switchport mode trunk
+switchport trunk native vlan 1
+no shutdown
+exit
+
+interface range gi0/1, gi0/2
+switchport mode trunk
+no shutdown
+exit
+
+!VLan de administracion
+interface Vlan1
+ip address 10.30.3.1 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 10.30.3.254
+exit
+
+cop r s
+
+
+SW2_P3
+
+
+enable
+configure terminal
+
+hostname SW2_P3
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
+interface range fa0/1-24
+shutdown
+exit
+
+interface range gi0/1-2
+shutdown
+exit
+
+!Se crean y asignan nombres a las vlans
+
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+
+!asignar vlans a puertos
+int fa0/2
+sw mode access
+sw access vlan 102
+exit
+
+int fa0/3
+sw mode access 
+sw access vlan 104
+exit
+
+!Asignar modo trunk
+interface gi0/1
+switchport mode trunk
+no shutdown
+exit
+
+int fa0/4
+sw mode access
+sw access vlan 100
+exit
+
+interface gi0/1
+switchport mode trunk
+no shutdown
+exit
+
+!VLan de administracion
+interface Vlan1
+ip address 10.30.3.2 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 10.30.3.254
+exit
+
+cop r s
+
+
+
+!SW1_P2
+
+enable
+configure terminal
+
+hostname SW1_P2
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
+interface range fa0/1-24
+shutdown
+exit
+
+interface range gi0/1-2
+shutdown
+exit
+
+!Se crean y asignan nombres a las vlans
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+
+!asignar vlans a puertos
+
+!fa04 a ventas
+interface fa0/4
+sw mode access
+switchport access vlan 108
+exit
+
+!fa03 a i+d
+interface fa0/3
+sw mode access
+switchport access vlan 106
+exit
+
+!Asignar modo trunk
+
+interface range gi0/1, gi0/2
+switchport mode trunk
+no shutdown
+exit
+
+!VLan de administracion
+interface Vlan1
+ip address 10.30.3.3 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 10.30.3.254
+exit
+
+cop r s
+
+
+SW2_P2
+
+enable
+configure terminal
+
+hostname SW2_P2
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
+interface range fa0/1-24
+shutdown
+exit
+
+interface range gi0/1-2
+shutdown
+exit
+
+!Se crean y asignan nombres a las vlans
+
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+
+!asignar vlans a puertos
+int fa0/2
+sw mode access
+sw access vlan 102
+exit
+
+int fa0/3
+sw mode access 
+sw access vlan 104
+exit
+
+!Asignar modo trunk
+interface gi0/1
+switchport mode trunk
+no shutdown
+exit
+
+int fa0/4
+sw mode access
+sw access vlan 100
+exit
+
+!Asignar modo trunk
+
+interface gi0/1
+switchport mode trunk
+no shutdown
+exit
+
+!VLan de administracion
+interface Vlan1
+ip address 10.30.3.4 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 10.30.3.254
+exit
+
+cop r s
+
+
+
+
+
+
+!SW1_P1
+
+enable
+configure terminal
+
+hostname SW1_P1
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
+interface range fa0/1-24
+shutdown
+exit
+
+interface range gi0/1-2
+shutdown
+exit
+
+!Se crean y asignan nombres a las vlans
+
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+
+!asignar vlans a puertos
+
+interface fa0/3
+sw mode access
+switchport access vlan 106
+exit
+
+interface fa0/4
+sw mode access
+switchport access vlan 108
+exit
+
+!Asignar modo trunk
+
+interface range gi0/1, gi0/2
+switchport mode trunk
+no shutdown
+exit
+
+!VLan de administracion
+interface Vlan1
+ip address 10.30.3.5 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 10.30.3.254
+exit
+
+cop r s
+
+
+SW2_P1
+
+enable
+configure terminal
+
+hostname SW2_P1
+no ip domain-lookup
+
+!Telnet
+enable secret cisco
+username cisco password cisco
+line vty 0 4
+login local
+line con 0
+login local
+exit
+
+!cerrar todos los puertos
+interface range fa0/1-24
+shutdown
+exit
+
+interface range gi0/1-2
+shutdown
+exit
+
+!Se crean y asignan nombres a las vlans
+
+vlan 100
+name soporte
+exit
+vlan 102
+name mercadeo
+exit
+vlan 104
+name juridica
+exit
+vlan 106
+name i+d
+exit
+vlan 108
+name ventas
+exit
+
+!asignar vlans a puertos
+int fa0/2
+sw mode access
+sw access vlan 100
+exit
+
+int fa0/3
+sw mode access 
+sw access vlan 104
+exit
+
+!Asignar modo trunk
+interface gi0/1
+switchport mode trunk
+no shutdown
+exit
+
+int fa0/4
+sw mode access
+sw access vlan 102
+exit
+
+!Asignar modo trunk
+
+interface gi0/1
+switchport mode trunk
+no shutdown
+exit
+
+!VLan de administracion
+interface Vlan1
+ip address 10.30.3.6 255.255.255.0
+exit
+
+!Default Gateway
+ip default-gateway 10.30.3.254
+exit
+
+cop r s

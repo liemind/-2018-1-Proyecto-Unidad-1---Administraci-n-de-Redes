@@ -19,6 +19,10 @@ exit
 ip dhcp excluded-address 192.168.10.1
 ip dhcp excluded-address 192.168.11.1
 
+!para partir del 20
+no ip dhcp excluded-address 192.168.10.1
+ip dhcp excluded-address 192.168.10.1 192.168.10.20
+
 
 !Creacion de POOL DHCP
 
@@ -75,3 +79,10 @@ network 192.168.20.0
 network 200.75.51.0
 exit
 
+!ospf
+no router rip
+router ospf 1
+network 192.168.10.0  0.0.0.255 a 0
+network 192.168.11.0 0.0.0.255 a 0
+network 192.168.20.0 0.0.0.255 a 0
+network 200.75.51.0 0.0.0.3 a 0
